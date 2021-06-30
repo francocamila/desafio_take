@@ -3,7 +3,9 @@ const axios = require('axios').default;
 var body_parser = require('body-parser');
 
 const api = express();
-var obj =[];
+api.use(express.static(__dirname));
+api.use(body_parser.json());
+var obj =[] ;
 axios.get('https://api.github.com/users/takenet/repos?sort=created&direction=asc')
     .then(response => {
         response.data.slice(0,6).forEach(res => {
@@ -17,14 +19,12 @@ axios.get('https://api.github.com/users/takenet/repos?sort=created&direction=asc
         })
     })
     .catch(error => console.error(error));
-api.use(express.static(__dirname));
-api.use(body_parser.json());
 api.listen(3000, () => {
     console.log('Hello!');
 })
 api.get('/', (req, res) => {
     console.log(req);
-    res.send('Gonzaguinha is here.');
+    res.send('This API is up and running.');
 })
 api.get('/repos', (req, res) => {
     console.log(req);
