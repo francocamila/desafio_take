@@ -1,10 +1,5 @@
-const express = require('express');
 const axios = require('axios').default;
-var body_parser = require('body-parser');
 
-const api = express();
-api.use(express.static(__dirname));
-api.use(body_parser.json());
 var obj =[] ;
 axios.get('https://api.github.com/users/takenet/repos?sort=created&direction=asc')
     .then(response => {
@@ -19,14 +14,5 @@ axios.get('https://api.github.com/users/takenet/repos?sort=created&direction=asc
         })
     })
     .catch(error => console.error(error));
-api.listen(5000, () => {
-    console.log('Hello!');
-})
-api.get('/', (req, res) => {
-    console.log(req);
-    res.send('This API is up and running.');
-})
-api.get('/repos', (req, res) => {
-    console.log(req);
-    res.json(obj);
-})
+
+module.exports = obj;
